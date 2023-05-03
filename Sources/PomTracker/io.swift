@@ -25,7 +25,7 @@ func saveData<T: Codable>(_ data: [T], to filename: String) {
     }
 }
 
-func loadData<T: Codable>(from filename: String) -> [T]? {
+func loadData<T: Codable>(_ data: inout [T], from filename: String) {
     let fileManager = FileManager.default
 
     do {
@@ -37,9 +37,8 @@ func loadData<T: Codable>(from filename: String) -> [T]? {
         let decoder = JSONDecoder()
 
         let loadedData = try decoder.decode([T].self, from: loadedJSONData)
-        return loadedData
+        data = loadedData
     } catch {
         print("Error loading data: \(error)")
-        return nil
     }
 }

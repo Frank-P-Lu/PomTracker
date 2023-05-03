@@ -55,3 +55,29 @@ struct Pomodoro: Codable, Equatable {
         self.endTime = endTime
     }
 }
+
+struct State {
+    var areas: [Area] = []
+    var projects: [Project] = []
+    var tasks: [Task] = []
+    var pomodoros: [Pomodoro] = []
+    
+    private let areasFilename = "areas.json"
+    private let projectsFilename = "projects.json"
+    private let tasksFilename = "tasks.json"
+    private let pomodorosFilename = "pomodoros.json"
+    
+    init() {
+        loadData(&areas, from: areasFilename)
+        loadData(&projects, from: projectsFilename)
+        loadData(&tasks, from: tasksFilename)
+        loadData(&pomodoros, from: pomodorosFilename)
+    }
+    
+    mutating func save() {
+        saveData(areas, to: areasFilename)
+        saveData(projects, to: projectsFilename)
+        saveData(tasks, to: tasksFilename)
+        saveData(pomodoros, to: pomodorosFilename)
+    }
+}
